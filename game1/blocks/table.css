@@ -1,0 +1,159 @@
+body{
+	background-image: linear-gradient(white, black); //#ffffff, #dcdcdc
+}
+.ready{
+	top: 0;
+	left: 50%; 
+	transform: translate(-50%, -90%); 
+	position: absolute;
+}
+.table{
+	margin: 15vh auto;
+	padding: 15vh 5vw 15vh 5vw;
+	background-color: green;
+	border: 1vh solid darkgreen;
+	border-radius: 50%;
+	width: 50vw;
+	height: 38vh;
+	position: relative;
+	box-shadow: 5px 10px gray;
+}
+.nickName{
+	font-size: 25px;
+}
+.inputButon{
+	display: block;
+	margin: 10vh auto;
+	padding: 2vh 3vw;
+	font-size: 1rem;
+	border-radius: 1vh;
+	cursor: pointer;
+}
+input[type=text]{
+	width: 35vw;
+	font-size: 25px;
+}
+.spanNickName{
+	font-weight: bold;
+}
+.place1, .place2, .place3, .place4{
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr;
+	background-color: lightgray;
+	border: 1px solid black;
+	width: 25vw;
+	height: 15vh;
+	border-radius: 10% / 50%;
+	position: absolute;
+	overflow: hidden;
+}
+.userName1, .userName2, .userName3, .userName4{
+	grid-column: 1;
+	grid-row: 1;
+	justify-self: center;
+}
+.place1{
+	top: 0px;
+	left: -50%; 
+	transform: translate(50%, 0); 
+}
+.place2{
+	top: 0px;
+	right: -50%; 
+	transform: translate(-50%, 0); 
+	
+}
+.place3{
+	top: 100%;
+	left: -50%; 
+	transform: translate(50%, -100%);
+}
+.place4{
+	top: 100%;
+	right: -50%; 
+	transform: translate(-50%, -100%); 
+}
+.butPlace1, .butPlace2, .butPlace3, .butPlace4{
+	width: 20vw;
+	height: 10vh;
+	overflow: hidden;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); 
+	position: absolute;
+	font-size: 2rem;
+}
+.tableOfTheGeneralScore{
+	display: block;
+	top: 0%;
+	left: 50%;
+	transform: translate(-50%, -5%);
+	position: absolute;
+	
+}
+.myButton1{
+	padding-bottom: 2vh;
+	left: 50%; 
+	transform: translate(-50%,-100%);
+	height: auto;
+	position: absolute;
+}
+.m1, .e1{
+	margin: 0px 2vw;
+	height: 8vh;
+	width: 10vw;
+	font-size: 1rem;
+}
+.currentScore{
+	grid-column: 1;
+	grid-row: -1;
+	justify-self: center;
+}
+
+.img{
+	top: 90%;
+	left: 50%;
+	transform: translate(-50%, -100%);
+	position: relative;
+	height: 20vh;
+	margin: 0px;
+	position: absolute;
+}
+.butReady{
+	display: block;
+	width: 30vw;
+	margin: 10px  auto 20px;
+	font-size: 1rem;
+	background-color: lightgreen;
+	cursor: pointer;
+}
+.winner{
+	z-index: 1;
+	padding: 10px;
+	max-width: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	font-size: 2em;
+	background-color: yellow;
+	border: 4px solid red;
+	border-radius: 10% / 20%;
+	/*box-shadow: 0px 0px gray;*/
+
+}
+.winnerName{
+	color: blue;
+}
+.moreOr21{
+	z-index: 1;
+	background-color: lightblue;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	font-size: 3rem;
+	font-weight: bold;
+	border: 2px solid black;
+}

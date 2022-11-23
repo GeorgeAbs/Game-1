@@ -1,0 +1,78 @@
+<?php
+	session_start();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>21</title>
+</head>
+<body>
+	<script type="text/javascript" src="/game1/scripts/beforeConfirmationName.js"></script>
+	<div class="setDefault">
+		<button class="butDefault">Откат</button>
+	</div>
+	<div class="table">
+		<div class="ready">
+			<button class="butReady">Дождитеcь всех игроков, после чего начинайте игру, нажав сюда</button>
+		</div>
+		<div class="nickName">
+			<span class="spanNickName">Ваше имя:</span>
+			<input type="text" class="inputNickName" maxlength="15"></input><br>
+			<button class="inputButon" onclick="confirmMyName('.inputNickName'), toggleHideBeforeConfirm()">Подтверждаю</input>
+		</div>
+		<div class="place1">
+			<button class="butPlace1 hideAfterSitting" onclick="checkThisPlaceBeforeSit('.butPlace1');">Сесть тут</button>
+			<span class="userName1"></span>
+			<span class="currentScore hideBeforeSitting"></span>
+		</div>
+		<div class="place2">
+			<button class="butPlace2 hideAfterSitting" onclick="checkThisPlaceBeforeSit('.butPlace2')">Сесть тут</button>
+			<span class="userName2"></span>
+			<span class="currentScore hideBeforeSitting"></span>
+		</div>
+		<div class="place3">
+			<button class="butPlace3 hideAfterSitting" onclick="checkThisPlaceBeforeSit('.butPlace3')">Сесть тут</button>
+			<span class="userName3"></span>
+			<span class="currentScore hideBeforeSitting"></span>
+		</div>
+		<div class="place4">
+			<button class="butPlace4 hideAfterSitting" onclick="checkThisPlaceBeforeSit('.butPlace4')">Сесть тут</button>
+			<span class="userName4"></span>
+			<span class="currentScore hideBeforeSitting"></span>
+			
+		</div>
+		<div class="winner hide">
+			<div class="winnerTitle">Сегодня 
+				<span class="winnerName">1</span>
+				 поймал удачу за хвост.<br>
+				Поздравляем!
+			</div>
+		</div>
+		<div class="moreOr21 hide">
+		</div>
+		<div class="tableOfTheGeneralScore">
+			<h1 class="h1Score">Результаты:</h1>
+			<p></p>
+		</div>
+	</div>
+	<div class="myCard">
+		<img class="img hideBeforeSitting" src="рубашка.jpg" alt=""></img>
+	</div>
+	<div class="myButton1">
+		<button class="m1">Еще</button>
+		<button class="e1">Хватит</button>
+	</div>
+	<script type="text/javascript" src="/game1/scripts/updateSittingButtons.js"></script>
+	<script type="text/javascript" src="/game1/scripts/firstLoading.js"></script>
+	<script type="text/javascript" src="/game1/scripts/onClickSittingButton.js"></script>
+	<script type="text/javascript" src="/game1/scripts/onClickConfirmName.js"></script>
+	<script type="text/javascript" src="/game1/scripts/beforeConfirmationName.js"></script>
+	<script type="text/javascript" src="/game1/scripts/updatingDataInTables.js"></script>
+	<script type="text/javascript" src="/game1/scripts/moreButton.js"></script>
+	<script type="text/javascript" src="/game1/scripts/enoughButton.js"></script>
+	<script type="text/javascript" src="/game1/scripts/assignMainPlayer.js"></script>
+	<script type="text/javascript" src="/game1/scripts/playingMainUser.js"></script>
+</html>
