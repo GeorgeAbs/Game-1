@@ -4,8 +4,8 @@
 	assignHost();
 	function assignHost()
 	{
-		$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-		mysqli_set_charset($db, "uft8");
+		$db = mysqli_connect('127.0.0.1', 'root', '', 'myDB');
+		mysqli_set_charset($db, "utf8");
 		$query = "SELECT `host` FROM `cards_for_21_game` WHERE `host` != '0'";
 		$res = mysqli_query($db, $query);
 		$userName = $_SESSION['myName'];

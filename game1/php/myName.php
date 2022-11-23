@@ -14,8 +14,8 @@
 	}
 	if (isset($_POST["gameIsStarted"]))
 	{
-		$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-		mysqli_set_charset($db, "uft8");
+		$db = mysqli_connect('127.0.0.1', 'root', '', 'myDB');
+		mysqli_set_charset($db, "utf8");
 		$query = "UPDATE `cards_for_21_game` SET `table_is_free` = '0' WHERE `user_name` = ''";
 		mysqli_query($db, $query);
 		$query = "SELECT `place_table` FROM `cards_for_21_game` WHERE `user_name` = ''";
@@ -37,8 +37,8 @@
 
 	function setDefault()
 	{
-		$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-		mysqli_set_charset($db, "uft8");
+		$db = mysqli_connect('127.0.0.1', 'root', '', 'myDB');
+		mysqli_set_charset($db, "utf8");
 		$query = "SELECT * FROM `cards_for_21_game` WHERE `host` = 'gameHost'";
 		$res = mysqli_query($db, $query);
 		if (mysqli_num_rows($res) == 0)

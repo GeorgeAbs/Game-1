@@ -4,8 +4,8 @@
 	{
 		$_SESSION['currentScore'] = 0;
 	}
-	$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-	mysqli_set_charset($db, "uft8");
+	$db = mysqli_connect('127.0.0.1', 'root', '', 'myDB');
+		mysqli_set_charset($db, "utf8");
 	$query = "SELECT `id`, `card_path`, `value` FROM `cards_for_21` WHERE  `status` = '0'";
 	$res = mysqli_query($db, $query);
 	$fetched = mysqli_fetch_all($res, MYSQLI_ASSOC);

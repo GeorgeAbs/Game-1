@@ -6,8 +6,8 @@
 		if(isset($_POST['firstRound']))
 		{
 			$_SESSION['gameIsStarted'] = 'started';
-			$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-			mysqli_set_charset($db, "uft8");
+			$db = mysqli_connect('127.0.0.1', 'root', '', 'myDB');
+			mysqli_set_charset($db, "utf8");
 			if($_POST['firstRound'] == '1')
 			{
 				echo('first round:   ');

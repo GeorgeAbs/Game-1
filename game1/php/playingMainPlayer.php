@@ -3,8 +3,8 @@
 	firstRoundFunc();
 	function firstRoundFunc()
 	{
-		$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-		mysqli_set_charset($db, "uft8");
+		$db = mysqli_connect('127.0.0.1', 'root', '', 'myDB');
+		mysqli_set_charset($db, "utf8");
 		$query = "SELECT `place_table`, `main_user` FROM `cards_for_21_game` WHERE `main_user` = 'main'";
 		$res = mysqli_query($db, $query);
 		$fetched = mysqli_fetch_all($res, MYSQLI_ASSOC);

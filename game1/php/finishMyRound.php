@@ -1,8 +1,8 @@
 <?php
 	session_start();
 	$_SESSION['currentScore'] = 0;
-	$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-	mysqli_set_charset($db, "uft8");
+	$db = mysqli_connect('127.0.0.1', 'root', '', 'myDB');
+		mysqli_set_charset($db, "utf8");
 	$myName = $_SESSION['myName'];
 	print_r($_SESSION);
 	if (isset($_POST['more21']))
