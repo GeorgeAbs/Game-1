@@ -1,82 +1,77 @@
 <?php
 	session_start();
 	$_SESSION['currentScore'] = 0;
-	$db = mysqli_connect('127.0.0.1', 'root', '', 'myDB');
-		mysqli_set_charset($db, "utf8");
+	require 'Db/Db.php';
+	$db = new Db();
 	$myName = $_SESSION['myName'];
 	print_r($_SESSION);
 	if (isset($_POST['more21']))
 	{
 		$query = "SELECT * FROM `cards_for_21_game` WHERE `user_name` = '$myName'";
-		$res = mysqli_query($db, $query);
 		echo('myName finishRoundMore21=' . $myName);
-		$fetched = mysqli_fetch_all($res, MYSQLI_ASSOC);
+		$fetched = $db->returnJsonQuery($query);
 		$totalScore = $fetched[0]['total_score'];
 		$fetched[0]['total_score'] == 0 ? $totalScore = 0 : $totalScore--;
 		$placeTable = $fetched[0]['place_table'];
 		$query = "UPDATE `cards_for_21_game` SET  `total_score` = '$totalScore' WHERE `place_table` = '$placeTable'";
-		$res = mysqli_query($db, $query);
+		$db->noReturnQuery($query);
 	}
 	if (isset($_POST['equal21']))
 	{
 		$query = "SELECT * FROM `cards_for_21_game` WHERE `user_name` = '$myName'";
-		$res = mysqli_query($db, $query);
 		echo('myName finishRoundEqual21=' . $myName);
-		$fetched = mysqli_fetch_all($res, MYSQLI_ASSOC);
+		$fetched = $db->returnJsonQuery($query);
 		$totalScore = $fetched[0]['total_score'] + 1;
 		$placeTable = $fetched[0]['place_table'];
 		$query = "UPDATE `cards_for_21_game` SET  `total_score` = '$totalScore' WHERE `place_table` = '$placeTable'";
-		$res = mysqli_query($db, $query);
+		$db->noReturnQuery($query);
 		$query = "UPDATE `cards_for_21_game` SET `main_user` = 'main' WHERE `user_name` != '' LIMIT 1";
 		echo(' _place_table=' . $placeTable);
-		$res = mysqli_query($db, $query);
+		$db->noReturnQuery($query);
 		$query = "UPDATE `cards_for_21_game` SET `finished_round` = '0', `current_score` = 0 WHERE `user_name` != ''";
-		$res = mysqli_query($db, $query);
+		$db->noReturnQuery($query);
 	}
 	$query = "UPDATE `cards_for_21_game` SET  `finished_round` = '1' WHERE `user_name` = '$myName'";
-	$res = mysqli_query($db, $query);
+	$db->noReturnQuery($query);
 
-	if (summaryFunc() == false && !isset($_POST['more21']) && !isset($_POST['equal21']))
+	if (summaryFunc($db) == false && !isset($_POST['more21']) && !isset($_POST['equal21']))
 	{
-		if (roundsFunc() == false)
+		if (roundsFunc($db) == false)
 		{
-			setMain();
+			setMain($db);
 		}
 		else
 		{
 			$query = "UPDATE `cards_for_21` SET `status` = '0'";
-			mysqli_query($db, $query);
+			$db->noReturnQuery($query);
 			$query = "UPDATE `cards_for_21_game` SET  `main_user` = '0'";
 			echo('___roundsFunc true___');
-			$res = mysqli_query($db, $query);
+			$db->noReturnQuery($query);
 			ifRoundIsFinishedFunc();
-			if (summaryFunc() == false)
+			if (summaryFunc($db) == false)
 			{
 				$query = "UPDATE `cards_for_21_game` SET `main_user` = 'main', `card_path` = 'side.jpg' WHERE `user_name` != '' LIMIT 1";
 				echo(' _place_table=' . $placeTable);
-				$res = mysqli_query($db, $query);
+				$db->noReturnQuery($query);
 				$query = "UPDATE `cards_for_21_game` SET `finished_round` = '0', `current_score` = 0 WHERE `user_name` != ''";
-				$res = mysqli_query($db, $query);
+				$db->noReturnQuery($query);
 			}
 			else
 			{
-				winnerFunc();
+				winnerFunc($db);
 			}
 		}
 	}
 	else
 	{
-		winnerFunc();
+		winnerFunc($db);
 	}
 	
-	function setMain()
+	function setMain($db)
 	{
 		echo('_setMain func_');
-		$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-		mysqli_set_charset($db, "uft8");
 		$query = "SELECT * FROM `cards_for_21_game` WHERE `user_name` != ''";
-		$res = mysqli_query($db, $query);
-		$fetched = mysqli_fetch_all($res, MYSQLI_ASSOC);
+		$fetched = $db->returnJsonQuery($query);
 		$placeTableMain = '';
 		$bool = false;
 		$i = 0;
@@ -116,36 +111,29 @@
 			$i++;
 		}
 	}
-	function summaryFunc()
+	function summaryFunc($db)
 	{
-		$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-		mysqli_set_charset($db, "uft8");
 		$result = false;
 		$query = "SELECT * FROM `cards_for_21_game` WHERE `total_score` = 5";
-		$res = mysqli_query($db, $query);
+		$res = $db->returnQuery($query);
 		if (mysqli_num_rows($res) > 0) //game is over
 			$result = true;
 		return $result;
 	}
-	function roundsFunc()
+	function roundsFunc($db)
 	{
-		$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-		mysqli_set_charset($db, "uft8");
 		$result = false;
 		$query = "SELECT * FROM `cards_for_21_game` WHERE `finished_round` = '0' AND `user_name` != ''";
-		$res = mysqli_query($db, $query);
+		$res = $db->returnQuery($query);
 		echo('roundsFunc rows=' . mysqli_num_rows($res));
 		if (mysqli_num_rows($res) == 0) //turn is over
 			$result = true;
 		return $result;
 	}
-	function ifRoundIsFinishedFunc()
+	function ifRoundIsFinishedFunc($db)
 	{
-		$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-		mysqli_set_charset($db, "uft8");
 		$query = "SELECT * FROM `cards_for_21_game` WHERE `user_name` != ''";
-		$res = mysqli_query($db, $query);
-		$fetched = mysqli_fetch_all($res, MYSQLI_ASSOC);
+		$fetched = $db->returnJsonQuery($query);
 		$iC = 0;
 		$curScoreForCompare = -1;
 		$roundWinner = 0;
@@ -158,7 +146,7 @@
 				$totalScore = $fetched[$iC]['total_score'] + 1;
 				$placeTable = $fetched[$iC]['place_table'];
 				$query = "UPDATE `cards_for_21_game` SET  `total_score` = '$totalScore' WHERE `place_table` = '$placeTable'";
-				$res = mysqli_query($db, $query);
+				$db->noReturnQuery($query);
 				echo(' 21 points, table=' . $placeTable . ' totScore=' . $totalScore);
 				return;
 			}
@@ -178,18 +166,15 @@
 			{
 				$totalScore += 1;
 				$query = "UPDATE `cards_for_21_game` SET  `total_score` = '$totalScore' WHERE `place_table` = '$roundWinner'";
-				$res = mysqli_query($db, $query);
+				$db->returnQuery($query);
 				echo('roundWinner='.$roundWinner);
 			}
 		}
 	}
-	function winnerFunc()
+	function winnerFunc($db)
 	{
-		$db = mysqli_connect('localhost', 'u1824956_default', 'oi4C7AUa2xYk8O5O' , 'u1824956_default') or die('Ошибка соединения с БД');
-		mysqli_set_charset($db, "uft8");
 		$query = "SELECT * FROM `cards_for_21_game` WHERE `total_score` = 5";
-		$res = mysqli_query($db, $query);
-		$fetched = mysqli_fetch_all($res, MYSQLI_ASSOC);
+		$fetched = $db->returnJsonQuery($query)
 		echo('game is finished, winner' . $fetched[0]['user_name'] . 'game is finished, winner');
 	}
 ?>

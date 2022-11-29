@@ -1,5 +1,7 @@
 <?php
 	session_start();
+	require 'Db/Db.php';
+	$db = new Db();
 	$but = $_POST["butClass"];
 	$place = 0;
 	$name = $_SESSION['myName'];
@@ -8,8 +10,6 @@
 	if ($but == '.butPlace3') {$place = 3; $_SESSION["tableClass"] = '.place3';}
 	if ($but == '.butPlace4') {$place = 4; $_SESSION["tableClass"] = '.place4';}
 	$_SESSION["table"] = $place;
-	$db = mysqli_connect('127.0.0.1', 'root', '', 'myDB');
-		mysqli_set_charset($db, "utf8");
 	$query = "UPDATE `cards_for_21_game` SET `table_is_free` = '0', `user_name` = '$name' WHERE `place_table` = '$place'";
-	$res = mysqli_query($db, $query);
+	$db->noReturnQuery($query);
 ?>
