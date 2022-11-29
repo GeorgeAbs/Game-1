@@ -3,7 +3,7 @@
 	require 'Db/Db.php';
 	$db = new Db();
 	assignHost();
-	function assignHost()
+	function assignHost($db)
 	{
 		$query = "SELECT `host` FROM `cards_for_21_game` WHERE `host` != '0'";
 		$res = $db->returnQuery($query);
